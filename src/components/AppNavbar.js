@@ -10,7 +10,7 @@ const AppNavbar = () => {
 		<Row className="bg-dark text-white mb-5 d-flex justify-content-center">
 			<Col md={8} className="">
 				<Navbar className="sticky-top" expand="md" variant="dark">
-					<Navbar.Brand>Zuitt</Navbar.Brand>
+					<Navbar.Brand>Codeversity</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="ms-auto">
