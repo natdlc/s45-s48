@@ -4,7 +4,7 @@ const Logout = () => {
 	localStorage.clear();
 	return (
 		<>
-			<Navigate to="/"/>
+			<Navigate to="/" />
 		</>
 	);
 };
