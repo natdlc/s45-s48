@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-
 	const [isActive, setIsActive] = useState(false);
-
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	const redirect = () => {

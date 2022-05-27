@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const AppNavbar = () => {
 	const [user, setUser] = useState(localStorage.getItem("email"));
-	console.log(user);
 
 	return (
 		<Row className="bg-dark text-white mb-5 d-flex justify-content-center">
