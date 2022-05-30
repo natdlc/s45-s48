@@ -41,7 +41,7 @@ const Register = () => {
 		clearFields();
 	};
 
-	return user.email ? (
+	return user.accessToken ? (
 		<Navigate to="/courses" />
 	) : (
 		<Col md={4}>

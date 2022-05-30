@@ -1,9 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { Form, Button, Col } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import UserContext from "../UserContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
+	const navigate = useNavigate();
+
 	/* FETCH
 
 	--> method in js to send request to api and process its response
@@ -29,16 +32,57 @@ const Login = () => {
 	const userLoginHandler = (e) => {
 		e.preventDefault();
 
-		// set email of authed user in localStorage
-		localStorage.setItem("email", email);
+		fetch("http://localhost:4000/users/login", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				email,
+				password,
+			}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.accessToken) {
+					localStorage.setItem("accessToken", data.accessToken);
+					setUser({
+						accessToken: data.accessToken,
+					});
+					Swal.fire({
+						title: "SUCCESS",
+						icon: "success",
+						text: "You are now logged in",
+					});
+					// get user details from token
+					fetch("http://localhost:4000/users/details", {
+						headers: {
+							Authorization: `Bearer ${data.accessToken}`,
+						},
+					})
+						.then((res) => res.json())
+						.then((data) => {
+							if (data.isAdmin) {
+								localStorage.setItem("isAdmin", data.isAdmin);
+								setUser({
+									isAdmin: data.isAdmin,
+								});
 
-		// set global user state to have properties obtained from local storage
-		setUser({ email: localStorage.getItem("email") });
-
-		localStorage.setItem("password", password);
-
-		setEmail("");
-		setPassword("");
+								// if admin, push to /courses
+								navigate("/courses");
+							} else {
+								// if not admin, push to '/'
+								navigate("/");
+							}
+						});
+				} else {
+					Swal.fire({
+						title: "Login failed",
+						icon: "error",
+						text: "Email or password is incorrect",
+					});
+				}
+				setEmail("");
+				setPassword("");
+			});
 	};
 
 	const loginInputs = () => {
@@ -54,7 +98,7 @@ const Login = () => {
 	const emailChangeHandler = (e) => setEmail(e.target.value);
 	const passwordChangeHandler = (e) => setPassword(e.target.value);
 
-	return user.email ? (
+	return user.accessToken ? (
 		<Navigate to="/courses" />
 	) : (
 		<Col md={8} lg={6} xl={4}>

@@ -6,7 +6,7 @@ const Logout = () => {
 	const { unsetUser, setUser } = useContext(UserContext);
 	unsetUser();
 	useEffect(() => {
-		setUser({ email: null });
+		setUser({ accessToken: null });
 	}, []);
 	return (
 		<>

@@ -19,16 +19,17 @@ function App() {
 	// used to store user info and validating if a user is logged in
 
 	const [user, setUser] = useState({
-		email: localStorage.getItem("email"),
+		accessToken: localStorage.getItem("accessToken"),
+		isAdmin: localStorage.getItem("isAdmin") === "true",
 	});
 
 	// function for clearing local storage on logout
 	const unsetUser = () => {
 		localStorage.clear();
-	}
+	};
 
 	return (
-		<UserProvider value={{user, setUser, unsetUser}}>
+		<UserProvider value={{ user, setUser, unsetUser }}>
 			<Router>
 				<AppNavbar />
 				<Container>
