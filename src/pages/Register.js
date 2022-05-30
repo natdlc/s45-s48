@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import UserContext from "../UserContext";
 
 const Register = () => {
@@ -15,6 +14,7 @@ const Register = () => {
 	const vPasswordChangeHandler = (e) => setVerifyPassword(e.target.value);
 
 	const [isActive, setIsActive] = useState(false);
+	const [isRegistered, setIsRegistered] = useState(false);
 
 	useEffect(() => {
 		if (email && password && verifyPassword && password === verifyPassword) {
@@ -32,17 +32,26 @@ const Register = () => {
 
 	const registerUser = (e) => {
 		e.preventDefault();
-		Swal.fire({
-			position: "center",
-			icon: "success",
-			title: "Thank you for signing up",
-			color: "#212529",
-		});
+		fetch("http://localhost:4000/users/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				email,
+				password,
+			}),
+		})
+			.then((result) => result.json())
+			.then(() => {
+				setIsRegistered(true);
+			});
+
 		clearFields();
 	};
 
-	return user.accessToken ? (
-		<Navigate to="/courses" />
+	return isRegistered ? (
+		<Navigate to="/login" />
 	) : (
 		<Col md={4}>
 			<h1 className="pb-5">Register</h1>

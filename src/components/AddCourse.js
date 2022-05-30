@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import Swal from "sweetalert2";
 
-const AddCourse = ({fetchData}) => {
+const AddCourse = ({ fetchData }) => {
 	// add state for the forms of adding a course
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
@@ -42,8 +43,7 @@ const AddCourse = ({fetchData}) => {
 
 					//Close our modal
 					closeAdd();
-					//you can use this as an alternative to refresh the whole document and get the updated data.
-					// window.location.reload()
+					window.location.reload()
 					fetchData();
 				} else {
 					Swal.fire({
