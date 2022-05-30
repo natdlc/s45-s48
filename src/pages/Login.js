@@ -1,12 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import UserContext from "../UserContext";
 
 const Login = () => {
+	// Consume User Context object its properties for user validation and email coming from login
+	const { setUser } = useContext(UserContext);
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isActive, setIsActive] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	const userLoginHandler = (e) => {
+		e.preventDefault();
+
+		// set email of authed user in localStorage
+		localStorage.setItem("email", email);
+
+		// set global user state to have properties obtained from local storage
+		setUser({ email: localStorage.getItem("email") });
+
+		localStorage.setItem("password", password);
+
+		setEmail("");
+		setPassword("");
+		setIsLoggedIn(true);
+	};
 
 	const redirect = () => {
 		return (
@@ -14,18 +34,6 @@ const Login = () => {
 				<Navigate to="/" />
 			</>
 		);
-	};
-
-	const userLoginHandler = (e) => {
-		e.preventDefault();
-
-		// set email of authed user in localStorage
-		localStorage.setItem("email", email);
-		localStorage.setItem("password", password);
-
-		setEmail("");
-		setPassword("");
-		setIsLoggedIn(true);
 	};
 
 	const loginInputs = () => {

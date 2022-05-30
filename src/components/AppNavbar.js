@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Navbar, Nav, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import UserContext from "../UserContext";
 
 const AppNavbar = () => {
-	const [user, setUser] = useState(localStorage.getItem("email"));
+	const { user } = useContext(UserContext);
 
 	return (
 		<Row className="bg-dark text-white mb-5 d-flex justify-content-center">
@@ -20,7 +21,7 @@ const AppNavbar = () => {
 								Courses
 							</Nav.Link>
 
-							{user !== null ? (
+							{user.email !== null ? (
 								<Nav.Link as={Link} to="/logout">
 									Logout
 								</Nav.Link>
