@@ -4,13 +4,27 @@ import { Navigate } from "react-router-dom";
 import UserContext from "../UserContext";
 
 const Login = () => {
+	/* FETCH
+
+	--> method in js to send request to api and process its response
+
+	--> syntax
+		fetch('url', {optional objects})
+		.then(response => response.json()) --> parse response as json
+		.then(actualData => console.log(actualData)) --> process result of response
+
+	--> from the syntax
+		url: api url
+		optional objects: contains addl info abt requests (ie method, body, headers)
+
+	*/
+
 	// Consume User Context object its properties for user validation and email coming from login
-	const { setUser } = useContext(UserContext);
+	const { setUser, user } = useContext(UserContext);
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isActive, setIsActive] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	const userLoginHandler = (e) => {
 		e.preventDefault();
@@ -25,15 +39,6 @@ const Login = () => {
 
 		setEmail("");
 		setPassword("");
-		setIsLoggedIn(true);
-	};
-
-	const redirect = () => {
-		return (
-			<>
-				<Navigate to="/" />
-			</>
-		);
 	};
 
 	const loginInputs = () => {
@@ -49,7 +54,9 @@ const Login = () => {
 	const emailChangeHandler = (e) => setEmail(e.target.value);
 	const passwordChangeHandler = (e) => setPassword(e.target.value);
 
-	return (
+	return user.email ? (
+		<Navigate to="/courses" />
+	) : (
 		<Col md={8} lg={6} xl={4}>
 			<h1 className="pb-5">Login</h1>
 			<Form onSubmit={userLoginHandler} className="border border-dark p-5 mb-5">
@@ -80,8 +87,6 @@ const Login = () => {
 						Login
 					</Button>
 				)}
-
-				{isLoggedIn ? redirect() : false}
 			</Form>
 		</Col>
 	);

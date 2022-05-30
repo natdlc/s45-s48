@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Form, Button, Col } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import UserContext from "../UserContext";
 
 const Register = () => {
+	const { user, setUser } = useContext(UserContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [verifyPassword, setVerifyPassword] = useState("");
@@ -38,7 +41,9 @@ const Register = () => {
 		clearFields();
 	};
 
-	return (
+	return user.email ? (
+		<Navigate to="/courses" />
+	) : (
 		<Col md={4}>
 			<h1 className="pb-5">Register</h1>
 			<Form
