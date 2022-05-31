@@ -1,4 +1,6 @@
 import { Button, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 
 const Banner = (props) => {
 	return (
@@ -9,7 +11,9 @@ const Banner = (props) => {
 				<p className="mb-3 text-secondary">
 					Made for beginners, advanced, and experts.
 				</p>
-				<Button variant="dark">Start Learning</Button>
+				<Button variant="dark" as={Link} to="/courses">
+					Start learning!
+				</Button>
 			</Col>
 		</Row>
 	);

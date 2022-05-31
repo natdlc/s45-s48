@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Col, Card, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
 
 const CourseCard = ({ courses }) => {
-	const { name, description, price } = courses;
+	const { _id, name, description, price } = courses;
+
 	let [count, setCount] = useState(0);
 	let [seat, setSeat] = useState(30);
 
@@ -31,18 +34,9 @@ const CourseCard = ({ courses }) => {
 					<Card.Subtitle>Price:</Card.Subtitle>
 					<Card.Text>Php {price}</Card.Text>
 
-					<Card.Text>Enrollees: {count}</Card.Text>
-					<Card.Text>Seats open: {seat}</Card.Text>
-
-					{isOpen ? (
-						<Button onClick={enrollHandler} variant="dark">
-							Enroll
-						</Button>
-					) : (
-						<Button onClick={enrollHandler} variant="dark" disabled>
-							Enroll
-						</Button>
-					)}
+					<Button variant="dark" as={Link} to={`/courses/${_id}`}>
+						Details
+					</Button>
 				</Card.Body>
 			</Card>
 		</Col>

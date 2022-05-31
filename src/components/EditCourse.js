@@ -1,25 +1,24 @@
 import { useState } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal, Form, ToggleButton } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-const AddCourse = ({ fetchData }) => {
-	// add state for the forms of adding a course
+const EditCourse = (props) => {
+	const { courseId, fetchData } = props;
+
+	const [showEditModal, setShowEditModal] = useState(false);
+
+	const openEditModal = () => setShowEditModal(true);
+	const closeEditModal = () => setShowEditModal(false);
+
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
 	const [price, setPrice] = useState(0);
+	const [isActive, setIsActive] = useState("");
 
-	// states for opening / closing modals
-	const [showAdd, setShowAdd] = useState(false);
-
-	// functions to handle opening and closing of Modal
-	const openAdd = () => setShowAdd(true);
-	const closeAdd = () => setShowAdd(false);
-
-	// function for adding a course
 	const submitHandler = (e) => {
 		e.preventDefault();
-		fetch("http://localhost:4000/courses/create", {
-			method: "POST",
+		fetch(`http://localhost:4000/courses/${courseId}`, {
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -28,21 +27,20 @@ const AddCourse = ({ fetchData }) => {
 				name: name,
 				description: description,
 				price: price,
+				isActive: isActive,
 			}),
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
-
 				if (data) {
 					Swal.fire({
 						title: "Success",
 						icon: "success",
-						text: "Course successfully added",
+						text: "Course successfully edited",
 					});
 
-					closeAdd();
-					fetchData(); //re-renders page from AdminView component
+					closeEditModal();
+					fetchData();
 				} else {
 					Swal.fire({
 						title: "error",
@@ -62,13 +60,18 @@ const AddCourse = ({ fetchData }) => {
 
 	return (
 		<>
-			<Button variant="dark" onClick={openAdd}>
-				Add New Course
+			<Button
+				className="d-inline-block"
+				variant="dark"
+				size="sm"
+				onClick={openEditModal}
+			>
+				Update
 			</Button>
-			<Modal show={showAdd} onHide={closeAdd}>
+			<Modal show={showEditModal} onHide={closeEditModal}>
 				<Form onSubmit={submitHandler}>
 					<Modal.Header closeButton>
-						<Modal.Title>Add Course</Modal.Title>
+						<Modal.Title>Edit Course</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<Form.Group>
@@ -98,9 +101,22 @@ const AddCourse = ({ fetchData }) => {
 								required
 							/>
 						</Form.Group>
+						<Form.Group>
+							<ToggleButton
+								className="mt-3"
+								id="toggle-check"
+								type="checkbox"
+								variant="outline-dark"
+								checked={isActive}
+								value={true}
+								onChange={(e) => setIsActive(e.currentTarget.checked)}
+							>
+								Active
+							</ToggleButton>
+						</Form.Group>
 					</Modal.Body>
 					<Modal.Footer>
-						<Button variant="danger" onClick={closeAdd}>
+						<Button variant="danger" onClick={closeEditModal}>
 							Close
 						</Button>
 						<Button variant="dark" type="submit">
@@ -113,4 +129,4 @@ const AddCourse = ({ fetchData }) => {
 	);
 };
 
-export default AddCourse;
+export default EditCourse;

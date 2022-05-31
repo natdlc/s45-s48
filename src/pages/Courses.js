@@ -18,7 +18,7 @@ const Courses = () => {
 	const { user } = useContext(UserContext);
 	useEffect(() => {
 		fetchData();
-	}, []);
+	}, [allCourses]);
 	return (
 		<>
 			<h1>Courses</h1>
@@ -26,7 +26,9 @@ const Courses = () => {
 			{user.isAdmin ? (
 				<AdminView coursesData={allCourses} fetchData={fetchData} />
 			) : (
-				<UserView coursesData={allCourses} />
+				<div className="d-flex">
+					<UserView coursesData={allCourses} />
+				</div>
 			)}
 		</>
 	);
