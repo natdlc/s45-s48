@@ -16,7 +16,7 @@ export default function SpecificCourse() {
 	const [price, setPrice] = useState(0);
 
 	useEffect(() => {
-		fetch(`htthttps://codeversity.herokuapp.com/courses/${courseId}`)
+		fetch(`https://codeversity.herokuapp.com/courses/${courseId}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setName(data.name);
