@@ -32,7 +32,7 @@ const Login = () => {
 	const userLoginHandler = (e) => {
 		e.preventDefault();
 
-		fetch("http://localhost:4000/users/login", {
+		fetch("https://codeversity.herokuapp.com/users/login", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -53,7 +53,7 @@ const Login = () => {
 						text: "You are now logged in",
 					});
 					// get user details from token
-					fetch("http://localhost:4000/users/details", {
+					fetch("https://codeversity.herokuapp.com/users/details", {
 						headers: {
 							Authorization: `Bearer ${data.accessToken}`,
 						},

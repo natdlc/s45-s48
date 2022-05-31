@@ -17,7 +17,7 @@ const EditCourse = (props) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		fetch(`http://localhost:4000/courses/${courseId}`, {
+		fetch(`https://codeversity.herokuapp.com/courses/${courseId}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

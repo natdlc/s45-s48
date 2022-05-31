@@ -15,7 +15,7 @@ const DeleteCourse = (props) => {
 		e.preventDefault();
 
 		if (willDelete) {
-			fetch(`http://localhost:4000/courses/${courseId}`, {
+			fetch(`https://codeversity.herokuapp.com/courses/${courseId}`, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",

@@ -18,7 +18,7 @@ const AddCourse = ({ fetchData }) => {
 	// function for adding a course
 	const submitHandler = (e) => {
 		e.preventDefault();
-		fetch("http://localhost:4000/courses/create", {
+		fetch("https://codeversity.herokuapp.com/courses/create", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

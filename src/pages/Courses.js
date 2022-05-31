@@ -8,7 +8,7 @@ const Courses = () => {
 	const [allCourses, setAllCourses] = useState([]);
 
 	const fetchData = () => {
-		fetch("http://localhost:4000/courses/all")
+		fetch("https://codeversity.herokuapp.com/courses/all")
 			.then((res) => res.json())
 			.then((data) => {
 				setAllCourses(data); // store all data to allCourses useState variable

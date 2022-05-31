@@ -16,7 +16,7 @@ const ArchiveCourse = (props) => {
 
 		if (courseIsActive) {
 			if (willArchive) {
-				fetch(`http://localhost:4000/courses/${courseId}/archive`, {
+				fetch(`https://codeversity.herokuapp.com/courses/${courseId}/archive`, {
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
@@ -46,13 +46,16 @@ const ArchiveCourse = (props) => {
 			}
 		} else {
 			if (willArchive) {
-				fetch(`http://localhost:4000/courses/${courseId}/unarchive`, {
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-					},
-				})
+				fetch(
+					`https://codeversity.herokuapp.com/courses/${courseId}/unarchive`,
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+						},
+					}
+				)
 					.then((res) => res.json())
 					.then((data) => {
 						if (data) {

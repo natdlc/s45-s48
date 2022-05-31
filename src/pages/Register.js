@@ -32,7 +32,7 @@ const Register = () => {
 
 	const registerUser = (e) => {
 		e.preventDefault();
-		fetch("http://localhost:4000/users/register", {
+		fetch("https://codeversity.herokuapp.com/users/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

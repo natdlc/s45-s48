@@ -16,7 +16,7 @@ export default function SpecificCourse() {
 	const [price, setPrice] = useState(0);
 
 	useEffect(() => {
-		fetch(`http://localhost:4000/courses/${courseId}`)
+		fetch(`htthttps://codeversity.herokuapp.com/courses/${courseId}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setName(data.name);
@@ -29,7 +29,7 @@ export default function SpecificCourse() {
 
 	//enroll function
 	const enroll = (courseId) => {
-		fetch("http://localhost:4000/users/enroll", {
+		fetch("https://codeversity.herokuapp.com/users/enroll", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
